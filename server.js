@@ -15,6 +15,15 @@ app.use('/api/productos', routerProducts)
 // Router Cart configuration
 app.use('/api/carrito', routerCart)
 
+// 404 error
+app.use((req, res, next) => {
+    const response = {
+        error: -2,
+        descripcion: `${req.url} ${req.method} no implementado`
+    }
+    res.status(404).json(response)
+})
+
 // Server start
 const server = app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)

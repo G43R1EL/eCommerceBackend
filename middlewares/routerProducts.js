@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Container = require('../controllers/container')
-const FILE_PRD = 'productos.json'
+const FILE_PRD = 'products.json'
 const container = new Container(FILE_PRD)
 const { isAuthenticated } = require('./auth')
 

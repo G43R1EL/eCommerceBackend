@@ -1,5 +1,5 @@
 // Admin boolean
-let admin = false
+let admin = true
 
 // Check if user is admin
 const isAuthenticated = (req, res, next) => {

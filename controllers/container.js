@@ -4,7 +4,7 @@ const fs = require('fs')
 module.exports = class Container {
     // Constructor
     constructor (filename) {
-        this.filename = './data/' + filename
+        this.filename = '.data/' + filename
     }
 
     // Save data to file

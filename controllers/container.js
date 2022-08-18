@@ -8,7 +8,7 @@ module.exports = class Container {
     }
 
     // Save data to file
-    save = async (data) => {
+    async save (data) {
         try {
             let items = await this.getAll()
                 .then (objs => { return objs })
@@ -27,7 +27,7 @@ module.exports = class Container {
     }
 
     // Get all data from file, if no data or file return empty array
-    getAll = async () => {
+    async getAll () {
         try {
             const data = await fs.promises.readFile(this.filename, 'utf8')
             if (data) {
@@ -45,7 +45,7 @@ module.exports = class Container {
     }
 
     // Get by id
-    getById = async (id) => {
+    async getById (id) {
         try {
             const item = await this.getAll()
                 .then (data => { return data.filter(obj => obj.id === id) })
@@ -60,7 +60,7 @@ module.exports = class Container {
     }
 
     // Update by id
-    updateById = async (id, item) => {
+    async updateById (id, item) {
         item.id = id
         try {
             const result = await this.getAll()
@@ -81,7 +81,7 @@ module.exports = class Container {
     }
 
     // Delete by id
-    deleteById = async (id) => {
+    async deleteById (id) {
         try {
             const result = await this.getAll()
                 .then (data => {
@@ -101,7 +101,7 @@ module.exports = class Container {
     }
 
     // Erase all data
-    deleteAll = async () => {
+    async deleteAll () {
         try {
             await fs.promises.writeFile(this.filename, '[]')
         } catch (error) {

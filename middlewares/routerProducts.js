@@ -21,7 +21,7 @@ router.get('/:id?', (req, res) => {
 router.post('/', isAuthenticated, (req, res) => {
     const product = req.body
     if (product.nombre && product.descripcion && product.precio && product.stock) {
-        product.timestamp = new Date.now()
+        product.timestamp = Date.now()
         product.precio = parseFloat(product.precio)
         product.stock = parseInt(product.stock)
         if (!product.foto) {
@@ -38,7 +38,7 @@ router.put('/:id', isAuthenticated, (req, res) => {
     const { id } = req.params
     const product = req.body
     if (product.nombre && product.descripcion && product.precio && product.stock) {
-        product.timestamp = new Date.now()
+        product.timestamp = Date.now()
         product.precio = parseFloat(product.precio)
         product.stock = parseInt(product.stock)
         if (!product.foto) {

@@ -8,7 +8,7 @@ const container = new Container(FILE_CART)
 router.post('/', (req, res) => {
     const products = req.body
     const cart = {
-        timestamp: new Date.now(),
+        timestamp: Date.now(),
         products: products
     }
     container.save(cart)
@@ -35,7 +35,7 @@ router.post('/:id/productos', (req, res) => {
         const products = snapshot.products
         products.push(product)
         const cart = {
-            timestamp: new Date.now(),
+            timestamp: Date.now(),
             products: products
         }
         container.updateById(id, cart).then (data => { res.json(data) })
@@ -51,7 +51,7 @@ router.delete('/:id/productos/:id_prod', (req, res) => {
         const products = snapshot.products
         const newProducts = products.filter(product => product.id != id_prod)
         const cart = {
-            timestamp: new Date.now(),
+            timestamp: Date.now(),
             products: newProducts
         }
         if (newProducts.length < products.length) {

@@ -16,19 +16,19 @@ router.post('/', (req, res) => {
 })
 
 router.delete('/:id', (req, res) => {
-    const { id } = req.params
+    const { id } = parseInt(req.params)
     container.deleteById(id)
         .then (data => { res.json(data) })
 })
 
 router.get('/:id/productos', (req, res) => {
-    const { id } = req.params
+    const { id } = parseInt(req.params)
     container.getById(id)
         .then (data => { res.json(data) })
 })
 
 router.post('/:id/productos', (req, res) => {
-    const { id } = req.params
+    const { id } = parseInt(req.params)
     const product = req.body
     const snapshot = container.getById(id).then (data => { return data })
     if (snapshot.products.length > 0) {
@@ -45,7 +45,7 @@ router.post('/:id/productos', (req, res) => {
 })
 
 router.delete('/:id/productos/:id_prod', (req, res) => {
-    const { id, id_prod } = req.params
+    const { id, id_prod } = parseInt(req.params)
     const snapshot = container.getById(id).then (data => { return data })
     if (snapshot.products.length > 0) {
         const products = snapshot.products

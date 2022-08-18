@@ -7,7 +7,7 @@ const { isAuthenticated } = require('./auth')
 
 // Products routes
 router.get('/:id?', (req, res) => {
-    const { id } = req.params
+    const { id } = parseInt(req.params)
     if (id) {
         container.getById(id)
             .then (data => { res.json(data) })
@@ -35,7 +35,7 @@ router.post('/', isAuthenticated, (req, res) => {
 })
 
 router.put('/:id', isAuthenticated, (req, res) => {
-    const { id } = req.params
+    const { id } = parseInt(req.params)
     const product = req.body
     if (product.nombre && product.descripcion && product.precio && product.stock) {
         product.timestamp = Date.now()
@@ -52,7 +52,7 @@ router.put('/:id', isAuthenticated, (req, res) => {
 })
 
 router.delete('/:id', isAuthenticated, (req, res) => {
-    const { id } = req.params
+    const { id } = parseInt(req.params)
     container.deleteById(id)
         .then (data => { res.json(data) })
 })

@@ -8,10 +8,9 @@ const containerProducts = new Container(FILE_PRD)
 
 // Cart routes
 router.post('/', (req, res) => {
-    const products = req.body
     const cart = {
         timestamp: Date.now(),
-        products: products
+        products: []
     }
     container.save(cart)
         .then (data => { res.json(data) })

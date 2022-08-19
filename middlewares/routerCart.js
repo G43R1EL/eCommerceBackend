@@ -55,10 +55,18 @@ router.delete('/:id/productos/:id_prod', (req, res) => {
     id_prod = parseInt(id_prod)
     container.getById(id)
         .then (cart => {
+            const prevCount = cart.products.length
             cart.products = cart.products.filter(product => product.id !== id_prod)
+            const newCount = cart.products.length
             cart.timestamp = Date.now()
             container.updateById(id, cart)
-                .then (data => { res.json(data) })
+                .then (data => {
+                    if (prevCount > newCount) { 
+                        res.json(data)
+                    } else {
+                        res.json({ error: 'product not found' })
+                    } 
+                })
                 .catch (err => { res.json({ error: err }) })
         })
         .catch (err => { res.json({ error: err }) })

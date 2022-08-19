@@ -1,8 +1,12 @@
 // Definitions and imports
 const express = require('express')
+const cors = require('cors')
 const app = express()
 const routerProducts = require('./middlewares/routerProducts').router
 const routerCart = require('./middlewares/routerCart').router
+
+// Enable all CORS
+app.use(cors())
 
 // Server config
 const PORT = process.env.PORT || 8080

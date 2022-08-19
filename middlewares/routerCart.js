@@ -2,7 +2,9 @@ const express = require('express')
 const router = express.Router()
 const Container = require('../controllers/container')
 const FILE_CART = 'cart.json'
+const FILE_PRD = 'products.json'
 const container = new Container(FILE_CART)
+const containerProducts = new Container(FILE_PRD)
 
 // Cart routes
 router.post('/', (req, res) => {
@@ -32,7 +34,8 @@ router.get('/:id/productos', (req, res) => {
 router.post('/:id/productos', (req, res) => {
     let { id } = req.params
     id = parseInt(id)
-    const product = req.body
+    const idProduct = parseInt(req.body.id)
+    const product = containerProducts.getById(idProduct)
     const snapshot = container.getById(id).then (data => { return data })
     if (snapshot.products.length > 0) {
         const products = snapshot.products

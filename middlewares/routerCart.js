@@ -33,8 +33,9 @@ router.get('/:id/productos', (req, res) => {
 
 router.post('/:id/productos', (req, res) => {
     let { id } = req.params
+    let idProduct = req.body.idProduct
     id = parseInt(id)
-    const idProduct = parseInt(req.body.id)
+    idProduct = parseInt(idProduct)
     const product = containerProducts.getById(idProduct)
     const snapshot = container.getById(id).then (data => { return data })
     if (snapshot.products.length > 0) {

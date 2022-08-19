@@ -65,8 +65,8 @@ module.exports = class Container {
         try {
             const result = await this.getAll()
                 .then (data => { 
-                    const idx = data.findIndex(obj => obj.id === id)
-                    if (index !== -1) {
+                    const idx = data.findIndex(obj => obj.id === item.id)
+                    if (idx !== -1) {
                         data[idx] = item
                         fs.promises.writeFile(this.filename, JSON.stringify(data))
                         return { success: 'product updated' }

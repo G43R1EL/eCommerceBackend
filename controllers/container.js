@@ -52,7 +52,7 @@ module.exports = class Container {
             if (item.length > 0) {
                 return item[0]
             } else {
-                return { error: 'product not found' }
+                return { error: 'data not found' }
             }
         } catch (error) {
             console.log(error)
@@ -69,9 +69,9 @@ module.exports = class Container {
                     if (idx !== -1) {
                         data[idx] = item
                         fs.promises.writeFile(this.filename, JSON.stringify(data))
-                        return { success: 'product updated' }
+                        return { success: 'data updated' }
                     } else {
-                        return { error: 'product not found' }
+                        return { error: 'data not found' }
                     }
                 })
             return result
@@ -89,9 +89,9 @@ module.exports = class Container {
                     const flt = data.filter(obj => obj.id !== id)
                     if (len > flt.length) {
                         fs.promises.writeFile(this.filename, JSON.stringify(flt))
-                        return { success: 'product deleted' }
+                        return { success: 'data deleted' }
                     } else {
-                        return { error: 'product not found' }
+                        return { error: 'data not found' }
                     }
                 })
             return result

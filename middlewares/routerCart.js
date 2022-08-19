@@ -36,41 +36,33 @@ router.post('/:id/productos', (req, res) => {
     let idProduct = req.body.idProduct
     id = parseInt(id)
     idProduct = parseInt(idProduct)
-    const product = containerProducts.getById(idProduct)
-    const snapshot = container.getById(id).then (data => { return data })
-    if (snapshot.products.length > 0) {
-        const products = snapshot.products
-        products.push(product)
-        const cart = {
-            timestamp: Date.now(),
-            products: products
-        }
-        container.updateById(id, cart).then (data => { res.json(data) })
-    } else {
-        res.json({ error: 'cart id not found' })
-    }
+    containerProducts.getById(idProduct)
+        .then (product => {
+            container.getById(id)
+                .then (cart => {
+                    cart.products.push(product)
+                    cart.timestamp = Date.now()
+                    container.updateById(id, cart)
+                        .then (data => { res.json(data) })
+                })
+                .catch (err => { res.json({ error: err }) })
+        })
+        .catch (err => { res.json({ error: err }) })
 })
 
 router.delete('/:id/productos/:id_prod', (req, res) => {
     let { id, id_prod } = req.params
     id = parseInt(id)
     id_prod = parseInt(id_prod)
-    const snapshot = container.getById(id).then (data => { return data })
-    if (snapshot.products.length > 0) {
-        const products = snapshot.products
-        const newProducts = products.filter(product => product.id != id_prod)
-        const cart = {
-            timestamp: Date.now(),
-            products: newProducts
-        }
-        if (newProducts.length < products.length) {
-            container.updateById(id, cart).then (data => { res.json(data) })
-        } else {
-            res.json({ error: 'product id not found' })
-        }
-    } else {
-        res.json({ error: 'cart id not found' })
-    }
+    container.getById(id)
+        .then (cart => {
+            cart.products = cart.products.filter(product => product.id !== id_prod)
+            cart.timestamp = Date.now()
+            container.updateById(id, cart)
+                .then (data => { res.json(data) })
+                .catch (err => { res.json({ error: err }) })
+        })
+        .catch (err => { res.json({ error: err }) })
 })
 
 // Export router

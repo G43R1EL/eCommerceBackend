@@ -1,9 +1,12 @@
+// Load dotenv config
+require('dotenv').config()
+
 // Definitions and imports
 const express = require('express')
 const cors = require('cors')
 const app = express()
-const routerProducts = require('./middlewares/routerProducts').router
-const routerCart = require('./middlewares/routerCart').router
+const routerProducts = require('./routes/routerProducts').router
+const routerCart = require('./routes/routerCart').router
 
 // Enable all CORS
 app.use(cors())

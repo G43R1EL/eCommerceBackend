@@ -1,19 +1,17 @@
 const express = require('express')
 const router = express.Router()
-const Container = require('../controllers/container')
-const FILE_PRD = 'products.json'
-const container = new Container(FILE_PRD)
-const { isAuthenticated } = require('./auth')
+const { productosDAO } = require("../daos/daoMaster")
+const { isAuthenticated } = require('../middlewares/auth')
 
 // Products routes
 router.get('/:id?', (req, res) => {
     let { id } = req.params
     id = parseInt(id)
     if (id) {
-        container.getById(id)
+        productosDAO.getById(id)
             .then (data => { res.json(data) })
     } else {
-        container.getAll()
+        productosDAO.getAll()
             .then (data => { res.json(data) })
     }
 })
@@ -28,7 +26,7 @@ router.post('/', isAuthenticated, (req, res) => {
         if (!product.foto) {
             product.foto = './assets/no-image.svg'
         }
-        container.save(product)
+        productosDAO.save(product)
             .then (data => { res.json(data) })
     } else {
         res.json({ error: 'missing fields' })
@@ -46,7 +44,7 @@ router.put('/:id', isAuthenticated, (req, res) => {
         if (!product.foto) {
             product.foto = './assets/no-image.svg'
         }
-        container.updateById(id, product)
+        productosDAO.updateById(id, product)
             .then (data => { res.json(data) })
     } else {
         res.json({ error: 'missing fields' })
@@ -56,7 +54,7 @@ router.put('/:id', isAuthenticated, (req, res) => {
 router.delete('/:id', isAuthenticated, (req, res) => {
     let { id } = req.params
     id = parseInt(id)
-    container.deleteById(id)
+    productosDAO.deleteById(id)
         .then (data => { res.json(data) })
 })
 

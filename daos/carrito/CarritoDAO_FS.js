@@ -1,6 +1,6 @@
-const Container = require('../../controllers/containerFilesystem')
+const ContainerFilesystem = require('../../controllers/containerFilesystem')
 
-module.exports = class CarritoDAO extends Container {
+module.exports = class CarritoDAO extends ContainerFilesystem {
     constructor() {
         super('carrito.json')
     }

@@ -1,7 +1,7 @@
 const fs = require('fs')
 
 // File persistence export class
-module.exports = class Container {
+module.exports = class ContainerFilesystem {
     // Constructor
     constructor (filename) {
         this.filename = '.data/' + filename
@@ -63,18 +63,17 @@ module.exports = class Container {
     async updateById (id, item) {
         item.id = id
         try {
-            const result = await this.getAll()
-                .then (data => { 
+            return await this.getAll()
+                .then(data => {
                     const idx = data.findIndex(obj => obj.id === item.id)
                     if (idx !== -1) {
                         data[idx] = item
                         fs.promises.writeFile(this.filename, JSON.stringify(data))
-                        return { success: 'data updated' }
+                        return {success: 'data updated'}
                     } else {
-                        return { error: 'data not found' }
+                        return {error: 'data not found'}
                     }
                 })
-            return result
         } catch (error) {
             console.log(error)
         }
@@ -83,18 +82,17 @@ module.exports = class Container {
     // Delete by id
     async deleteById (id) {
         try {
-            const result = await this.getAll()
-                .then (data => {
+            return await this.getAll()
+                .then(data => {
                     const len = data.length
                     const flt = data.filter(obj => obj.id !== id)
                     if (len > flt.length) {
                         fs.promises.writeFile(this.filename, JSON.stringify(flt))
-                        return { success: 'data deleted' }
+                        return {success: 'data deleted'}
                     } else {
-                        return { error: 'data not found' }
+                        return {error: 'data not found'}
                     }
                 })
-            return result
         } catch (error) {
             console.log(error)
         }

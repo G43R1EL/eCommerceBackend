@@ -14,6 +14,10 @@ switch (DB_ENGINE) {
         claseCarritoDAO = require("./carrito/CarritoDAO_MEM")
         claseProductosDAO = require("./productos/ProductosDAO_MEM")
         break
+    case 'mongodb':
+        claseCarritoDAO = require("./carrito/CarritoDAO_MDB")
+        claseProductosDAO = require("./productos/ProductosDAO_MDB")
+        break
     default:
         claseCarritoDAO = require("./carrito/CarritoDAO_FS")
         claseProductosDAO = require("./productos/ProductosDAO_FS")

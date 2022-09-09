@@ -1,9 +1,10 @@
-module.exports = class Container {
+// Memory volatile export class
+module.exports = class ContainerMemory {
     constructor() {
         this.container = []
     }
 
-    // Save data to file
+    // Save data to memory
     async save (data) {
         try {
             if (this.container.length > 0) {
@@ -18,11 +19,12 @@ module.exports = class Container {
         }
     }
 
-    // Get all data from file, if no data or file return empty array
+    // Get all data from memory, if no data or file return empty array
     async getAll () {
         try {
+            console.log(this.container)
             if (this.container) {
-                return JSON.parse(this.container)
+                return this.container
             } else {
                 return []
             }

@@ -14,14 +14,12 @@ router.post('/', (req, res) => {
 
 router.delete('/:id', (req, res) => {
     let { id } = req.params
-    id = parseInt(id)
     carritoDAO.deleteById(id)
         .then (data => { res.json(data) })
 })
 
 router.get('/:id/productos', (req, res) => {
     let { id } = req.params
-    id = parseInt(id)
     carritoDAO.getById(id)
         .then (data => { res.json(data) })
 })
@@ -29,8 +27,6 @@ router.get('/:id/productos', (req, res) => {
 router.post('/:id/productos', (req, res) => {
     let { id } = req.params
     let idProduct = req.body.idProduct
-    id = parseInt(id)
-    idProduct = parseInt(idProduct)
     productosDAO.getById(idProduct)
         .then (product => {
             carritoDAO.getById(id)
@@ -47,8 +43,6 @@ router.post('/:id/productos', (req, res) => {
 
 router.delete('/:id/productos/:id_prod', (req, res) => {
     let { id, id_prod } = req.params
-    id = parseInt(id)
-    id_prod = parseInt(id_prod)
     carritoDAO.getById(id)
         .then (cart => {
             const prevCount = cart.products.length

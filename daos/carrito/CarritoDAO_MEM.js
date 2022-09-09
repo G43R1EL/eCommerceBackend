@@ -1,6 +1,6 @@
-const Container = require('../../controllers/containerMemory')
+const ContainerMemory = require('../../controllers/containerMemory')
 
-module.exports = class CarritoDAO extends Container {
+module.exports = class CarritoDAO extends ContainerMemory {
     constructor() {
         super()
     }

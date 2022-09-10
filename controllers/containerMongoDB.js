@@ -76,18 +76,4 @@ module.exports = class ContainerMongodb {
             console.log(error)
         }
     }
-
-    // Erase all data
-    async deleteAll () {
-        try {
-            const {deletedCount} = await this.collection.deleteMany()
-            if (deletedCount) {
-                return { success: 'data deleted' }
-            } else {
-                return { error: 'data not found' }
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }
 }

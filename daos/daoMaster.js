@@ -10,6 +10,10 @@ switch (DB_ENGINE) {
         claseCarritoDAO = require("./carrito/CarritoDAO_FS")
         claseProductosDAO = require("./productos/ProductosDAO_FS")
         break
+    case 'firebase':
+        claseCarritoDAO = require("./carrito/CarritoDAO_FB")
+        claseProductosDAO = require("./productos/ProductosDAO_FB")
+        break
     case 'memory':
         claseCarritoDAO = require("./carrito/CarritoDAO_MEM")
         claseProductosDAO = require("./productos/ProductosDAO_MEM")

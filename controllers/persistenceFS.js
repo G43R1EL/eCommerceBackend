@@ -57,8 +57,9 @@ class PersistenceFS {
 
     async updateById (id, upd) {
         try {
-            if (upd.id) { delete upd.id }
-            const idx = this.data.findIndex((item) => item.id == id)
+            if (upd.id) { upd.id = id }
+            const idx = this.data.findIndex(item =>  item.id == id)
+            console.log(idx)
             if (idx !== -1) {
                 this.data[idx] = {...this.data[idx], ...upd}
                 await this._writeFile()

@@ -11,6 +11,8 @@ routerCarts.post('/', async (req, res) => {
 routerCarts.post('/:cid/product/:pid', async (req, res) => {
     const query = await fsCarts.getById(req.params.cid)
     if (query.status === 'success') {
+        const product = req.body
+        product.id = req.params.pid
         const idx = query.payload.products.findIndex(item => item.id == req.params.pid)
         if (idx !== -1) {
             query.payload.products[idx].quantity += parseInt(req.body.quantity)
@@ -18,7 +20,7 @@ routerCarts.post('/:cid/product/:pid', async (req, res) => {
             res.send({status: 'success', message: 'Producto actualizado'})
         } else {
             req.body.quantity = parseInt(req.body.quantity)
-            query.payload.products.push(req.body)
+            query.payload.products.push(product)
             fsCarts.updateById(req.params.cid, query.payload)
             res.send({status: 'success', message: 'Producto agregado'})
         }

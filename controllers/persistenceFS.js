@@ -73,7 +73,7 @@ class PersistenceFS {
 
     async getById (id) {
         try {
-            const idx = this.data.findIndex((item) => item.id === id)
+            const idx = this.data.findIndex((item) => item.id == id)
             if (idx !== -1) {
                 return {status: 'success', payload: this.data[idx]}
             } else {
